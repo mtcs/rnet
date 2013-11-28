@@ -1,6 +1,6 @@
 ![RNet](res/net2-small.png)
 
-# RNet - Realistic random network generator
+# Realistic random network generator
 
 RNet is a realistic random network generator. It generates a social network from
 some statistical parameters. It deliberately assign communities to each node to 

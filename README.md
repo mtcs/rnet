@@ -11,25 +11,25 @@ achieve realistic social behavior.
 
 ### Required:
 
-G++ 	- The GNU Compiler Collection (GCC) is a compiler system produced by the
+> __G++__ The GNU Compiler Collection (GCC) is a compiler system produced by the
 	GNU Project supporting various programming languages. GCC is a key
 	component of the GNU toolchain.
-CMake 	- Cmake os a cross-platform free software program for managing the build
+	
+> __Cmake__ os a cross-platform free software program for managing the build
         process of software using a compiler-independent method.
 
 ### Optional:
 
-CCMake	- The "ccmake" executable is the CMake curses interface.
+> __CCMake__ The "ccmake" executable is the CMake curses interface.
 
 
 ### Commands:
 
-`
- cd rnet/build
- cmake ../src
- make -j4
- ./rnet
-`
+	# cd rnet/build
+	# cmake ../src (or ccmake ../src)
+	# make -j4
+	# ./rnet
+
 
 
 Copyright (C) 2013 Matheus Caldas Santos

@@ -15,7 +15,7 @@ achieve realistic social behavior.
 	GNU Project supporting various programming languages. GCC is a key
 	component of the GNU toolchain.
 	
-> __Cmake__ os a cross-platform free software program for managing the build
+> __Cmake__ is a cross-platform free software program for managing the build
         process of software using a compiler-independent method.
 
 ### Optional:

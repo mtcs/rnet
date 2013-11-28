@@ -1,4 +1,4 @@
-![RNet](res/net2-small.jpg)
+![RNet](res/net2-small.png)
 
 # RNet - Realistic random network generator
 

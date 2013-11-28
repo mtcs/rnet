@@ -1,4 +1,4 @@
-![RNet](res/net2.jpg)
+![RNet](res/net2-small.jpg)
 
 # RNet - Realistic random network generator
 
@@ -24,10 +24,12 @@ CCMake	- The "ccmake" executable is the CMake curses interface.
 
 ### Commands:
 
-`# cd rnet/build`
-`# cmake ../src`
-`# make -j4`
-`# ./rnet`
+`
+ cd rnet/build
+ cmake ../src
+ make -j4
+ ./rnet
+`
 
 
 Copyright (C) 2013 Matheus Caldas Santos

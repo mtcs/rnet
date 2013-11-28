@@ -8,7 +8,7 @@ achieve realistic social behavior.
 
 RNet is __highly flexible__, it can accept several parameters. Besides the size of the generated network, it also accepts: outdegree, indegree and community size probability distributions, probability of connecting inside a node community and probability of connecting a node to a totally random node. These parameters make possible to generate a large variety of networks with much smaller restrictions than other generators.
 
-RNet is also __very fast__, it is possible to generate graphs with milions of vertices in metter of seconds! It uses multithreading to better explore modern CPU power.
+RNet is also __very fast__, it is possible to generate graphs with millions of vertices in matter of seconds! It uses multithreading to better explore modern CPU power.
 
 ## Examples
 
@@ -18,7 +18,7 @@ RNet is also __very fast__, it is possible to generate graphs with milions of ve
 
 \* This network visualization was obtained using Gephi force atlas layout generator. Colors represent communities detected by "Fast Unfolding" Algorithm modularity algorithm and node size represent node Betweenness Centrality.
 
-\*\* This file was benerated with RNet using default parameters Power Law distributions and default probabilities.
+\*\* This file was generated with RNet using default parameters Power Law distributions and default probabilities.
 
 For more information go to our [wiki](https://github.com/mtcs/rnet/wiki).
 

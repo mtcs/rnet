@@ -85,3 +85,6 @@ CCMake	- The "ccmake" executable is the CMake curses interface.
 # cmake ../src
 # make -j4
 # ./rnet
+
+
+Report bugs to mtcs@github.com

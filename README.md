@@ -1,6 +1,6 @@
 ![RNet](res/net2-small.png)
 
-# RNet - Realistic random network generator
+# Realistic random network generator
 
 RNet is a realistic random network generator. It generates a social network from
 some statistical parameters. It deliberately assign communities to each node to 
@@ -21,7 +21,7 @@ achieve realistic social behavior.
 	GNU Project supporting various programming languages. GCC is a key
 	component of the GNU toolchain.
 	
-> __Cmake__ os a cross-platform free software program for managing the build
+> __Cmake__ is a cross-platform free software program for managing the build
         process of software using a compiler-independent method.
 
 ### Optional:
@@ -41,5 +41,3 @@ achieve realistic social behavior.
 > Gephi, a great tool for graphs
 
 Copyright (C) 2013 Matheus Caldas Santos
-
-mtcs@github.com

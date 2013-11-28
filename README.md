@@ -10,7 +10,7 @@ achieve realistic social behavior.
 
 ![1000 node RNet](res/rnet1000.png "1000 node RNet*")
 
-* This network visualization was obtained using Gephi force atlas layout generator.
+* This network visualization was obtained using Gephi force atlas layout generator. Colors represent communities detected by "Fast Unfolding" Algorithm modularity algorithm and node size represent node Betweenness Centrality.
 
 
 ## Compilation
@@ -38,6 +38,7 @@ achieve realistic social behavior.
 # Usefull Links
 
 > Get started with CMake!
+
 > Gephi, a great tool for graphs
 
 Copyright (C) 2013 Matheus Caldas Santos

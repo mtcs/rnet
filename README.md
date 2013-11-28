@@ -14,7 +14,7 @@ RNet is also __very fast__, it is possible to generate graphs with milions of ve
 
 ![1000 node RNet*](res/rnet1000.png "1000 node RNet*")
 
-[1000 node RNet Data file**](res/rnet1000-el.txt, rnet1000-el.txt)
+[1000 node RNet Data file**](https://github.com/mtcs/rnet/res/rnet1000-el.txt, rnet1000-el.txt)
 
 \* This network visualization was obtained using Gephi force atlas layout generator. Colors represent communities detected by "Fast Unfolding" Algorithm modularity algorithm and node size represent node Betweenness Centrality.
 

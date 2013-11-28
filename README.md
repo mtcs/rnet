@@ -33,5 +33,3 @@ achieve realistic social behavior.
 
 
 Copyright (C) 2013 Matheus Caldas Santos
-
-mtcs@github.com

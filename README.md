@@ -6,8 +6,14 @@ RNet is a realistic random network generator. It generates a social network from
 some statistical parameters. It deliberately assign communities to each node to 
 achieve realistic social behavior.
 
+## Examples
 
-##Compilation
+![1000 node RNet](res/rnet1000.png "1000 node RNet*")
+
+* This network visualization was obtained using Gephi force atlas layout generator.
+
+
+## Compilation
 
 ### Required:
 
@@ -22,7 +28,6 @@ achieve realistic social behavior.
 
 > __CCMake__ The "ccmake" executable is the CMake curses interface.
 
-
 ### Commands:
 
 	# cd rnet/build
@@ -30,7 +35,10 @@ achieve realistic social behavior.
 	# make -j4
 	# ./rnet
 
+# Usefull Links
 
+> Get started with CMake!
+> Gephi, a great tool for graphs
 
 Copyright (C) 2013 Matheus Caldas Santos
 

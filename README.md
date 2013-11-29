@@ -12,7 +12,9 @@ RNet is also __very fast__, it is possible to generate graphs with millions of v
 
 ## Examples
 
-![1000 node RNet*](res/rnet10000-small.png "1000 node RNet*")]
+![1000 node RNet*](res/rnet10000-small.png "1000 node RNet*")
+
+[Larger Image](wiki/res/rnet10000.png)
 
 [10000 node RNet Data file**](res/rnet10000-el.txt "rnet10000-el.txt.gz")
 

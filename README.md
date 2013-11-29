@@ -50,7 +50,7 @@ version of gcc (with homebrew?) and set cmake to work with it:
 
 > For Windows users:
 
-> MinGW compiler is also compatible with RNet though, it needs to be properly installed. Some details should also be observed. For more information goto our [Compile in Windows Wiki]. Compiling in Cygwin, instead of compiling in native windows, is recommended.
+> MinGW compiler is also compatible with RNet though, it needs to be properly installed. Some details should also be observed. For more information goto our [Compile in Windows Wiki](http://github.com/mtcs/rnet/wiki/Windows-Compilation). Compiling in Cygwin, instead of compiling in native windows, is recommended.
 
 ### Optional:
 

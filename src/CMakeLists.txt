@@ -19,8 +19,8 @@ cmake_minimum_required(VERSION 2.8)
 
 project(netmodel)
 
-set (RNET_VERSION_MAJOR 0)
-set (RNET_VERSION_MINOR 3)
+set (RNET_VERSION_MAJOR 1)
+set (RNET_VERSION_MINOR 0)
 
 set (CMAKE_BUILD_TYPE RELEASE)
 

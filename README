@@ -77,7 +77,10 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 Compilation
 -----------
 
-- Required (Unux/Linux):
+
+- Unux/Linux
+
+-- Required 
 
 GCC 	- The GNU Compiler Collection (GCC) is a compiler system produced by the
 	GNU Project supporting various programming languages. GCC is a key
@@ -86,17 +89,32 @@ GCC 	- The GNU Compiler Collection (GCC) is a compiler system produced by the
 OpenMP  - Support is required from the compiler, if you wish to use other compiler
 	make sure it has OpenMP support.
 	
-CMake 	- Cmake os a cross-platform free software program for managing the build
+CMake 	- Cmake is a cross-platform free software program for managing the build
         process of software using a compiler-independent method.
 
-For Mac OS users:
+-- Optional:
+
+CCMake	- The "ccmake" executable is the CMake curses interface.
+
+
+-- Commands:
+
+# cd rnet/build
+# cmake ../src
+# make -j4
+# ./rnet
+
+
+- Mac OS:
 
 Calling gcc in the command line actually calls for XCode's LLVM, which uses clang 
 and does not currently support openMP. To compile you must first download a working 
 version of gcc (with homebrew?) and set cmake to work with it: 
+
 CC=[path-to-gcc] CXX=[path-to-g++] cmake ../src
 
-For Windows users:
+
+- Windows:
 
 1) Verify if MinGW in in the PATH (to put it there follow the instructions in
 "Environment Settings" in [http://www.mingw.org/wiki/Getting_Started]).
@@ -117,17 +135,9 @@ native compilers" in the window list. After, click "Next", fill paths to GCC and
 [http://blog.gmane.org/gmane.comp.gnu.make.windows/month=20050601]).
 
 
-- Optional:
-
-CCMake	- The "ccmake" executable is the CMake curses interface.
 
 
-- Commands:
 
-# cd rnet/build
-# cmake ../src
-# make -j4
-# ./rnet
 
 
 Report bugs to github.com/mtcs/rnet

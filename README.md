@@ -26,7 +26,9 @@ For more information go to our [wiki](https://github.com/mtcs/rnet/wiki).
 
 # Compilation
 
-### Required (Unix/Linux):
+## UnixLinux
+
+### Required 
 
 * __GCC__ The GNU Compiler Collection (GCC) is a compiler system produced by the
 GNU Project supporting various programming languages. GCC is a key component of 
@@ -37,20 +39,6 @@ compiler make sure it has OpenMP support.
 	
 * __Cmake__ is a cross-platform free software program for managing the build
 process of software using a compiler-independent method.
-
-> For Mac OS users:
-
-> Calling gcc in the command line actually calls for XCode's LLVM, which uses clang 
-and does not currently support openMP. To compile you must first download a working 
-version of gcc (with homebrew?) and set cmake to work with it:
-
-> `CC=[path-to-gcc] CXX=[path-to-g++] cmake ../src`
-
-
-
-> For Windows users:
-
-> MinGW compiler is also compatible with RNet though, it needs to be properly installed. Some details should also be observed. For more information goto our [Compile in Windows Wiki](http://github.com/mtcs/rnet/wiki/Windows-Compilation). Compiling in Cygwin, instead of compiling in native windows, is recommended.
 
 ### Optional:
 
@@ -63,6 +51,20 @@ version of gcc (with homebrew?) and set cmake to work with it:
 	# make -j4
 	# ./rnet
 	
+## Mac OS
+
+> Calling gcc in the command line actually calls for XCode's LLVM, which uses clang 
+and does not currently support openMP. To compile you must first download a working 
+version of gcc (with homebrew?) and set cmake to work with it:
+
+> `CC=[path-to-gcc] CXX=[path-to-g++] cmake ../src`
+
+
+
+## Windows
+
+> MinGW compiler is also compatible with RNet though, it needs to be properly installed. Some details should also be observed. For more information goto our [Compile in Windows Wiki](http://github.com/mtcs/rnet/wiki/Windows-Compilation). Compiling in Cygwin, instead of compiling in native windows, is recommended.
+
 	
 # References
 

@@ -32,6 +32,8 @@ enum Distribution{
 	NORMAL
 };
 
+void printLicense();
+
 class Config {
 	public:
 

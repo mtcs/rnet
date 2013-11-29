@@ -18,6 +18,10 @@
 */
 
 
+#ifdef OPENMP_FOUND
+	#include <omp.h>
+#endif
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -103,8 +107,8 @@ void generateComunities(vector< vector< pair<int,int> > > & comunities, vector<i
 			else {
 				switch (conf.comDist){
 					case POWERLAW:
-						//newCommunitySize = 1 + (2 * unifDist(randGen)) + powerLaw( unifDist(randGen),  1, numNodes, -conf.comP);
-						newCommunitySize =  powerLaw( unifDist(randGen),  1, numNodes, -conf.comP);
+						newCommunitySize = 1 + (2 * unifDist(randGen)) + powerLaw( unifDist(randGen),  1, numNodes, -conf.comP);
+						//newCommunitySize =  powerLaw( unifDist(randGen),  1, numNodes, -conf.comP);
 						break;
 
 					case NORMAL:
@@ -237,6 +241,8 @@ int chooseRandomDest(
 	//}while( (edgesP->find( index ) != edgesP->end()) || (index == i) || (index >= numNodes) );
 	}while( ( nodeChosed[ index ] ) || (index == i) || (index >= numNodes) );
 
+	nodeChosed[index] = true;
+
 	return index;
 }
 
@@ -310,6 +316,8 @@ int main (int argc, char ** argv){
 	//float comPerc = argc > 5 ? atof(argv[5]) :  0.95; // Community linking probability
 	//float neighb = argc > 6 ? atof(argv[6]) : 0.00; // Neighbourhood linking probability
 	//float rand = argc > 7 ? atof(argv[7]) : 0.05; // Random out connection probability
+
+	printLicense();
 
 	Config config(argc, argv);
 

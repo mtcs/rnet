@@ -18,8 +18,8 @@
 */
 
 
+
 #include <sys/time.h>
-#include <omp.h>
 #include <iostream>
 #include <sstream>
 #include "utils.h"
@@ -235,7 +235,13 @@ void kalman_update(struct kalman_state* state, double measurement){
 double smoothElapTime(double val){
 	static int hPos = 0;
 	static int started = 0;
-	static int histLength = max (16, 2 * omp_get_num_threads());
+
+	#ifdef OPENMP_FOUND
+	const static int histLength = max (16, 2 * omp_get_num_threads());
+	#else
+	const static int histLength = 16;
+	#endif
+
 	static double * history = new double[histLength];
 
 	if(started <= 1){

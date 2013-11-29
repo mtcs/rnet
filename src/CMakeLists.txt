@@ -22,10 +22,7 @@ project(netmodel)
 set (RNET_VERSION_MAJOR 0)
 set (RNET_VERSION_MINOR 3)
 
-configure_file (
-	"${PROJECT_SOURCE_DIR}/CMakeConfig.h.in"
-	"${PROJECT_BINARY_DIR}/CMakeConfig.h"
-	    )
+set (CMAKE_BUILD_TYPE RELEASE)
 
 add_definitions(-O3)
 #add_definitions(-O0)
@@ -65,6 +62,11 @@ endif(OPENMP_FOUND)
 
 # DEBUG - Electric fence
 #set (EXTRA_LIBS ${EXTRA_LIBS} efence)
+
+configure_file (
+	"${PROJECT_SOURCE_DIR}/CMakeConfig.h.in"
+	"${PROJECT_BINARY_DIR}/CMakeConfig.h"
+	    )
 
 add_executable(rnet rnet.cpp config.cpp utils.cpp logo.cpp)
 

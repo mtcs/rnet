@@ -26,15 +26,22 @@ For more information go to our [wiki](https://github.com/mtcs/rnet/wiki).
 
 ### Required:
 
-* __G++__ The GNU Compiler Collection (GCC) is a compiler system produced by the
-	GNU Project supporting various programming languages. GCC is a key
-	component of the GNU toolchain.
+* __GCC__ The GNU Compiler Collection (GCC) is a compiler system produced by the
+GNU Project supporting various programming languages. GCC is a key component of 
+the GNU toolchain.
+
+* __OpenMP__ Support is required from the compiler, if you wish to use other 
+compiler make sure it has OpenMP support.
 	
 * __Cmake__ is a cross-platform free software program for managing the build
-        process of software using a compiler-independent method.
+process of software using a compiler-independent method.
 
-> For Mac OS users
-> Calling gcc in the command line actually calls for XCode's LLVM, which uses clang and does not currently support openMP. To compile you must first download a working version of gcc (with homebrew?) and set cmake to work with it:
+> For Mac OS users:
+
+> Calling gcc in the command line actually calls for XCode's LLVM, which uses clang 
+and does not currently support openMP. To compile you must first download a working 
+version of gcc (with homebrew?) and set cmake to work with it:
+
 > `CC=[path-to-gcc] CXX=[path-to-g++] cmake ../src`
 
 
@@ -52,7 +59,7 @@ For more information go to our [wiki](https://github.com/mtcs/rnet/wiki).
 	
 # References
 
-_Yet to apear_
+_Yet to appear_
 
 
 # Usefull Links

@@ -26,7 +26,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/time.h>
-#include <omp.h>
 #include <string>
 #include <string.h>
 #include <math.h>

@@ -31,11 +31,17 @@
 
 using namespace std;
 
+void printLicense(){
+	cerr << "RNet Copyright (C) 2013 Matheus Caldas Santos" << endl;
+	cerr << "This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'." << endl;
+	cerr << "This is free software, and you are welcome to redistribute it" << endl;
+	cerr << "under certain conditions; see <http://www.gnu.org/licenses/> for details." << endl;
+}
+
 void Config::help(){
 	cerr << endl;
-        cerr << "Copyright (C) Pending to Matheus Caldas Santos" << endl;
-	cerr << "Distributed under the GNU General Public License (GPL) v2." << endl;
-        cerr << "RNet " << RNET_VERSION_MAJOR << "." << RNET_VERSION_MINOR << endl;
+        cerr << "RNet " << RNET_VERSION_MAJOR << "." << RNET_VERSION_MINOR << " (" << CMAKE_BUILD_TYPE  << ")" << endl;
+	cerr << "Compiled for " << CMAKE_SYSTEM_NAME << " by " << COMPILER << endl;
 	cerr << endl;
 	logo();
 	cerr << endl;

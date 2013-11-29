@@ -14,7 +14,7 @@ RNet is also __very fast__, it is possible to generate graphs with millions of v
 
 ![10000 node RNet*](res/rnet10000-small.png "10000 node RNet*")
 
-[Larger Image](mtcs/rnet/wiki/res/rnet10000.png)
+[Larger Image](/mtcs/rnet/wiki/res/rnet10000.png)
 
 [10000 node RNet Data file**](res/rnet10000-el.txt "rnet10000-el.txt.gz")
 
@@ -26,7 +26,7 @@ For more information go to our [wiki](https://github.com/mtcs/rnet/wiki).
 
 # Compilation
 
-### Required:
+### Required (Unix/Linux):
 
 * __GCC__ The GNU Compiler Collection (GCC) is a compiler system produced by the
 GNU Project supporting various programming languages. GCC is a key component of 
@@ -46,6 +46,11 @@ version of gcc (with homebrew?) and set cmake to work with it:
 
 > `CC=[path-to-gcc] CXX=[path-to-g++] cmake ../src`
 
+
+
+> For Windows users:
+
+> MinGW compiler is also compatible with RNet though, it needs to be properly installed. Some details should also be observed. For more information goto our [Compile in Windows Wiki]. Compiling in Cygwin, instead of compiling in native windows, is recommended.
 
 ### Optional:
 

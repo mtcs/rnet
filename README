@@ -62,15 +62,30 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
   some statistical parameters. It deliberately assign communities to each node to 
   achieve realistic social behavior.
 
+  RNet is __highly flexible__, it can accept several parameters. Besides the size of
+  the generated network, it also accepts: outdegree, indegree and community size
+  probability distributions, probability of connecting inside a node community and
+  probability of connecting a node to a totally random node. These parameters make
+  possible to generate a large variety of networks with much smaller restrictions
+  than other generators.
+
+  RNet is also __very fast__, it is possible to generate graphs with millions of
+  vertices in matter of seconds! It uses multithreading to better explore modern CPU
+  power.
+
 
 Compilation
 -----------
 
-- Required:
+- Required (Unux/Linux):
 
 GCC 	- The GNU Compiler Collection (GCC) is a compiler system produced by the
 	GNU Project supporting various programming languages. GCC is a key
 	component of the GNU toolchain.
+
+OpenMP  - Support is required from the compiler, if you wish to use other compiler
+	make sure it has OpenMP support.
+	
 CMake 	- Cmake os a cross-platform free software program for managing the build
         process of software using a compiler-independent method.
 
@@ -80,6 +95,27 @@ Calling gcc in the command line actually calls for XCode's LLVM, which uses clan
 and does not currently support openMP. To compile you must first download a working 
 version of gcc (with homebrew?) and set cmake to work with it: 
 CC=[path-to-gcc] CXX=[path-to-g++] cmake ../src
+
+For Windows users:
+
+1) Verify if MinGW in in the PATH (to put it there follow the instructions in
+"Environment Settings" in [http://www.mingw.org/wiki/Getting_Started]).
+
+2) If you never used OpenMP with MinGW, you will also need to install OpenMP
+libraries. To do so, open the MonGW installation manager, go to  "All Packages >
+MinGW > MinGW Base System" and install "mingw32-libgomp" and "mingw32-pthreads-w32".
+
+3) One way to configure the RNet CMake is to go to CMake GUI, open
+configuration menu, select "MSYS Makefiles" option on the dropdown and "Specify
+native compilers" in the window list. After, click "Next", fill paths to GCC and G++
+(ex: C:/MinGW/bin/gcc.exe). Than, hit "Finish" to configure CMake.
+
+4) Hit the "Generate" button to generate Makefile.
+
+5) To compile RNet, go to MSYS, browse the build directory and execute "make"
+("mingw32-make" will not work properly due to POSIX path incompatibility:
+[http://blog.gmane.org/gmane.comp.gnu.make.windows/month=20050601]).
+
 
 - Optional:
 
@@ -94,4 +130,4 @@ CCMake	- The "ccmake" executable is the CMake curses interface.
 # ./rnet
 
 
-Report bugs to mtcs@github.com
+Report bugs to github.com/mtcs/rnet

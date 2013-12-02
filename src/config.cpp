@@ -60,6 +60,8 @@ void Config::help(){
 	cerr << "                               link node." << endl;
 	cerr << "  -A --commassign <FILE>       Output to a specified file the community assigned" << endl;
 	cerr << "                               to each node." << endl;
+	cerr << "  -l --inlineOutput            Inline output doesn't save the graph in memmory " << endl;
+	cerr << "                               before outputing edge list, so it saves memmory." << endl;
 	cerr << "  -v --verbose                 Verbose output." << endl;
 	cerr << endl;
 	cerr << endl;
@@ -138,6 +140,7 @@ Config::Config(int argc, char ** argv){
 	comMean = 0;
 
 	comAssignFile = "";
+	inlineOutput = false;
 	verbose = false;
 
 		static struct option long_options[] = {
@@ -150,6 +153,7 @@ Config::Config(int argc, char ** argv){
 			{"comdist",	required_argument, 	0,  'c' },
 
 			{"comassign",	required_argument,     	0,  'a' },
+			{"inlineout",	no_argument,     	0,  'l' },
 			{"verbose",	no_argument,       	0,  'v' }
 		};
 
@@ -158,7 +162,7 @@ Config::Config(int argc, char ** argv){
 	while (1) {
 		int option_index = 0;
 
-		c = getopt_long(argc, argv, "n:r:m:o:i:c:a:v",
+		c = getopt_long(argc, argv, "n:r:m:o:i:c:a:lv",
 				long_options, &option_index);
 		if (c == -1)
 			break;
@@ -191,6 +195,10 @@ Config::Config(int argc, char ** argv){
 
 			case 'a':
 				comAssignFile = optarg;
+				break;
+
+			case 'l':
+				inlineOutput = true;
 				break;
 
 			case 'v':

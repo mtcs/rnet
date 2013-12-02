@@ -39,6 +39,7 @@ class Config {
 
 		int numNodes; // Number of nodes
 		int maxDegree;  
+		bool inlineOutput;
 
 		// Linking probabilities 
 		float comPerc; // Community linking probability

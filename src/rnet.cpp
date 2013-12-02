@@ -248,15 +248,12 @@ int chooseRandomDest(
 
 void generateNetwork(
 		vector< list<int> > & adjList, 
-		//vector<int> &inDegree, 
-		float rand, 
-		float inP, 
+		vector<int> &inDegree, 
 		vector<int> &degree, 
 		vector<pair<int,int>> &degreeRank, 
 		vector< vector< pair<int,int> > > & comunities, 
 		vector<int> &commAssign, 
-		float comPerc//, 
-		//float neighb
+		Config &config 
 		){
 
 
@@ -270,24 +267,33 @@ void generateNetwork(
 		default_random_engine randGen(time(NULL));
 		uniform_real_distribution<double> unifDist(0.0,1.0);
 		
-		/*#pragma omp for schedule(static,128)
-		for ( unsigned int i = 0; i < numNodes; ++i){
+		#pragma omp for schedule(static,128)
+		for ( unsigned int i = 0; i < numNodes; ++i ){
 			inDegree[i] = 0;
 		}// */
 
 		#pragma omp for schedule(dynamic, 128)
-		for ( unsigned int i = 0; i < numNodes; ++i){
+		for ( unsigned int i = 0; i < numNodes; ++i ){
 			
 			progress(numNodes, i, 100);
 			vector<bool> nodeChosed(numNodes);
 
 			for ( int k = 0; k < degree[i] ; ++k){
-				unsigned int index = chooseRandomDest(i, &adjList[i], nodeChosed, degree, degreeRank, &comunities[commAssign[i]], rand, comPerc, inP);
+				unsigned int index = chooseRandomDest(i, &adjList[i], nodeChosed, degree, degreeRank, &comunities[commAssign[i]], config.rand, config.comPerc, config.inP);
 				//cerr << i << " " << index << "   "; cerr.flush();
 
-				// Update Adjacency list
-				adjList[i].push_back(index);
-
+				if( config.inlineOutput ){
+					// Update Adjacency list
+					adjList[i].push_back(index);
+				}else{
+					// Or print inline
+					#pragma omp critical
+					{
+						cout << i << " " << index << " " << endl;
+					}
+				}
+				//#pragma omp atomic 
+				//inDegree[index]++;
 			}
 		}// */
 	}
@@ -322,7 +328,7 @@ int main (int argc, char ** argv){
 	Config config(argc, argv);
 
 	vector<int> degree (config.numNodes);
-	//vector<int> inDegree (config.numNodes);
+	vector<int> inDegree (config.numNodes);
 	vector< list<int> > adjList(config.numNodes);
 	vector<pair<int,int>> degreeRank(config.numNodes);
 	vector< vector< pair<int,int> > > communities(config.numNodes);
@@ -353,16 +359,17 @@ int main (int argc, char ** argv){
 	plotVecPdf<int>(commSize);
 
 	printMessage(1, "Generating Network");
-	//generateNetwork(adjList, inDegree, config.rand, config.inP, degree, degreeRank, communities, commAssign, config.comPerc);
-	generateNetwork(adjList, config.rand, config.inP, degree, degreeRank, communities, commAssign, config.comPerc);
+	generateNetwork(adjList, inDegree, degree, degreeRank, communities, commAssign, config);
 
 	// InDegree PDF Chart
 	//printMessage(2, "InDegree PDF");
 	//plotVecPdf<int>(inDegree);
 
 
-	//Print edge list output
-	printMessage(1, "Output");
-	printGraph(adjList, config.numNodes);
+	if ( ! config.inlineOutput ){
+		//Print edge list output
+		printMessage(1, "Output");
+		printGraph(adjList, config.numNodes);
+	}
 
 }

@@ -42,7 +42,7 @@ process of software using a compiler-independent method.
 
 ### Optional:
 
-* __CCMake__ The "ccmake" executable is the CMake curses interface.
+* __CCMake__ is the CMake curses interface.
 
 ### Commands:
 

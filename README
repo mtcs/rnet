@@ -94,7 +94,7 @@ CMake 	- Cmake is a cross-platform free software program for managing the build
 
 -- Optional:
 
-CCMake	- The "ccmake" executable is the CMake curses interface.
+CCMake	- Ccmake is the CMake curses interface.
 
 
 -- Commands:

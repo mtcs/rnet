@@ -54,6 +54,10 @@ class Config {
 		float inP; // In Degree Power
 		float comP; // Community size Power
 
+		int outMax;
+		int inMax;
+		int comMax;
+
 		// Normal
 		int outMean;
 		int inMean;
@@ -73,7 +77,7 @@ class Config {
 
 	private :
 
-		Distribution parseDist(char *, float & pow, int & mean, float & sd);
+		Distribution parseDist(char *, float & pow, int &max, int & mean, float & sd);
 
 };
 

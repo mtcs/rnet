@@ -33,7 +33,7 @@ using namespace std;
 
 void printLicense(){
 	cerr << "RNet Copyright (C) 2013 Matheus Caldas Santos" << endl;
-	cerr << "This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'." << endl;
+	cerr << "This program comes with ABSOLUTELY NO WARRANTY." << endl;
 	cerr << "This is free software, and you are welcome to redistribute it" << endl;
 	cerr << "under certain conditions; see <http://www.gnu.org/licenses/> for details." << endl;
 }
@@ -53,30 +53,34 @@ void Config::help(){
 	cerr << endl;
 	cerr << "  \033[1mBASIC PARAMETERS\033[21m " << endl;
 	cerr << endl;
-	cerr << "  -n --numnodes #              Number of nodes/vertices in the network." << endl;
+	cerr << "  -n --numnodes #              Number of nodes/vertices in the network. [REQUIRED]" << endl;
 	cerr << "  -m --commlink #              Probability of a node to be connected to a node " << endl;
-	cerr << "                               inside its community." << endl; 
+	cerr << "                               inside its community. (Default: 0.95)" << endl; 
 	cerr << "  -r --randomlink #            Probability of a node to be connected to a random " << endl;
-	cerr << "                               link node." << endl;
-	cerr << "  -A --commassign <FILE>       Output to a specified file the community assigned" << endl;
-	cerr << "                               to each node." << endl;
+	cerr << "                               link node. (Default: 0.05)" << endl;
+	cerr << "  -a --commassign <FILE>       Output to a specified file the community assigned" << endl;
+	cerr << "                               to each node. (Default: NULL)" << endl;
 	cerr << "  -l --inlineOutput            Inline output doesn't save the graph in memmory " << endl;
 	cerr << "                               before outputing edge list, so it saves memmory." << endl;
-	cerr << "  -v --verbose                 Verbose output." << endl;
+	cerr << "                               (Default: False)" << endl;
+	cerr << "  -v --verbose                 Verbose output. (Default: False)" << endl;
 	cerr << endl;
 	cerr << endl;
 	cerr << "  \033[1mDISTRIBUTIONS PARAMETERS\033[21m - Distribution name followed by a comma " <<endl;
 	cerr << "  and its parameters also separated by commas. Ex.: -o normal,100,5.8 " << endl;
-	cerr << "     ___________________________________________________________________" << endl;
-	cerr << "    |Available Distributions | Distribution Parameters                  |" << endl;
-	cerr << "    |-------------------------------------------------------------------|" << endl;
-	cerr << "    |powerlaw                | power constant(float)                    |" << endl;
-	cerr << "    |normal                  | mean(integer), standard deviation(float) |" << endl;
-	cerr << "    |________________________|__________________________________________|" << endl;
+	cerr << "     ______________________________________________________________________" << endl;
+	cerr << "    |Available Distributions | Distribution Parameters                     |" << endl;
+	cerr << "    |----------------------------------------------------------------------|" << endl;
+	cerr << "    |powerlaw                | power constant(float), maximum value(float) |" << endl;
+	cerr << "    |normal                  | mean(integer), standard deviation(float)    |" << endl;
+	cerr << "    |________________________|_____________________________________________|" << endl;
 	cerr << endl;
-	cerr << "  -o --outdist	#       Outdegree distribution and arguments." << endl;
-	cerr << "  -i --indist #        Indegree distribution and arguments." << endl;
-	cerr << "  -c --comdist #       Community size distribution and arguments." << endl;
+	cerr << "  -o --outdist	#       Outdegree distribution and arguments. " << endl;
+	cerr << "                       (Default: powerlaw,2.10,n/(5*log(n))" << endl;
+	cerr << "  -i --indist #        Indegree distribution and arguments. " << endl;
+	cerr << "                       (Default: powerlaw,1.1,NULL)" << endl;
+	cerr << "  -c --comdist #       Community size distribution and arguments. " << endl; 
+	cerr << "                       (Default: powerlaw,1.9,n/5)" << endl;
 	cerr << "" << endl;
 	cerr << "Mandatory or optional arguments to long options are also mandatory or optional" << endl;
 	cerr << "for any corresponding short options." << endl;
@@ -85,7 +89,7 @@ void Config::help(){
 	cerr << "Report bugs to matheus@..." << endl;
 }
 
-Distribution Config::parseDist(char * distStr, float & pow, int & mean, float & sd){
+Distribution Config::parseDist(char * distStr, float & pow, int & max, int & mean, float & sd){
 	stringstream ss(distStr);
 
 	string token;
@@ -116,6 +120,12 @@ Distribution Config::parseDist(char * distStr, float & pow, int & mean, float & 
 		}
 		pow = atof(token.data());
 
+		if (! getline(ss, token, ',')){
+			help();
+			exit(1);
+		}
+		max = atof(token.data());
+
 		return POWERLAW;
 	}
 	// use powerlaw by default
@@ -135,6 +145,11 @@ Config::Config(int argc, char ** argv){
 	outP = 2.10; // Out Degree Power
 	inP = 1.1; // In Degree Power
 	comP = 1.9; // Community size Power
+
+	outMax = 0;
+	inMax = 0;
+	comMax = 0;
+
 	outMean = 0;
 	inMean = 0;
 	comMean = 0;
@@ -181,15 +196,15 @@ Config::Config(int argc, char ** argv){
 				break;
 
 			case 'o':
-				outDist = parseDist(optarg, outP, outMean, outSD);
+				outDist = parseDist(optarg, outP, outMax, outMean, outSD);
 				break;
 
 			case 'i':
-				inDist = parseDist(optarg, inP, inMean, inSD);
+				inDist = parseDist(optarg, inP, inMax, inMean, inSD);
 				break;
 
 			case 'c':
-				comDist = parseDist(optarg, comP, comMean, comSD);
+				comDist = parseDist(optarg, comP, comMax, comMean, comSD);
 				break;
 
 
@@ -207,12 +222,15 @@ Config::Config(int argc, char ** argv){
 			}
 	}
 
-	if ( numNodes <= 10 ){
+	if ( numNodes <= 20 ){
 		help();
 		exit(1);
 	}
 
 	maxDegree = numNodes / ( 5 * log(numNodes));  
+
+	if (outMax == 0) outMax = numNodes / ( 5 * log(numNodes));
+	if (comMax == 0) comMax = numNodes/5;
 
 	if ( outMean == 0 ) { outMean = maxDegree/2; outSD = outMean/5; }
 	if ( inMean == 0 ) {inMean = maxDegree/2; inSD = inMean/5; }

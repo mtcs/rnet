@@ -50,7 +50,7 @@ bool reverseSort(pair<int,int> a, pair<int,int> b){
 	return (a.second > b.second);
 }
 
-void generateDegree(vector<int> &degree, vector<pair<int,int>> &degreeRank, int maxDegree, Config &conf){
+void generateDegree(vector<int> &degree, vector<pair<int,int>> &degreeRank, Config &conf){
 	
 	default_random_engine randGen(time(NULL));
 	uniform_real_distribution<double> unifDist(0.0,1.0);
@@ -61,7 +61,7 @@ void generateDegree(vector<int> &degree, vector<pair<int,int>> &degreeRank, int 
 	for ( unsigned int i = 0; i < numNodes; ++i){
 		switch (conf.outDist){
 			case POWERLAW:
-				degree[i] = 2 * unifDist(randGen) + powerLaw( unifDist(randGen),  1, maxDegree, -conf.outP);
+				degree[i] = 2 * unifDist(randGen) + powerLaw( unifDist(randGen),  1, conf.outMax, -conf.outP);
 			break;
 
 			case NORMAL:
@@ -76,7 +76,7 @@ void generateDegree(vector<int> &degree, vector<pair<int,int>> &degreeRank, int 
 		degreeRank[i].second = degree[i];
 
 	}
-	printMessage(2, "%d Nodes %d Edges (degree-Mean: %.0lf Max:%d)", numNodes, numEdges, (double) numEdges/numNodes, maxDegree);
+	if(conf.verbose)printMessage(2, "%d Nodes %d Edges (degree-Mean: %.0lf Max:%d)", numNodes, numEdges, (double) numEdges/numNodes, conf.outMax);
 	sort(degreeRank.begin(), degreeRank.end(), reverseSort);
 }
 
@@ -107,7 +107,7 @@ void generateComunities(vector< vector< pair<int,int> > > & comunities, vector<i
 			else {
 				switch (conf.comDist){
 					case POWERLAW:
-						newCommunitySize = 1 + (2 * unifDist(randGen)) + powerLaw( unifDist(randGen),  1, numNodes, -conf.comP);
+						newCommunitySize = 1 + (2 * unifDist(randGen)) + powerLaw( unifDist(randGen),  1, conf.comMax, -conf.comP);
 						//newCommunitySize =  powerLaw( unifDist(randGen),  1, numNodes, -conf.comP);
 						break;
 
@@ -259,7 +259,7 @@ void generateNetwork(
 
 	unsigned int numNodes = adjList.size();
 
-	printMessage(3,"Community and random attachment");
+	if(config.verbose)printMessage(3,"Community and random attachment");
 
 	#pragma omp parallel 
 	{
@@ -275,7 +275,7 @@ void generateNetwork(
 		#pragma omp for schedule(dynamic, 128)
 		for ( unsigned int i = 0; i < numNodes; ++i ){
 			
-			progress(numNodes, i, 100);
+			if(config.verbose)progress(numNodes, i, 100);
 			vector<bool> nodeChosed(numNodes);
 
 			for ( int k = 0; k < degree[i] ; ++k){
@@ -298,7 +298,7 @@ void generateNetwork(
 		}// */
 	}
 
-	cerr << endl;
+	if(config.verbose)cerr << endl;
 }
 
 void printGraph(vector< list<int> > & adjList, int numNodes){
@@ -323,9 +323,10 @@ int main (int argc, char ** argv){
 	//float neighb = argc > 6 ? atof(argv[6]) : 0.00; // Neighbourhood linking probability
 	//float rand = argc > 7 ? atof(argv[7]) : 0.05; // Random out connection probability
 
-	printLicense();
 
 	Config config(argc, argv);
+
+	if(config.verbose)printLicense();
 
 	vector<int> degree (config.numNodes);
 	vector<int> inDegree (config.numNodes);
@@ -334,31 +335,35 @@ int main (int argc, char ** argv){
 	vector< vector< pair<int,int> > > communities(config.numNodes);
 	vector<int> commAssign(config.numNodes);
 
-	logo();
+	if(config.verbose)logo();
 
-	printMessage(1, "Generating Outdegree");
-	generateDegree(degree, degreeRank, config.maxDegree, config);
+	if(config.verbose)printMessage(1, "Generating Outdegree");
+	generateDegree(degree, degreeRank, config);
 
 	// Outdegree PDF Chart
-	printMessage(2, "OutDegree PDF");
-	plotVecPdf<int>(degree);
+	if(config.verbose)printMessage(2, "OutDegree PDF");
+	if(config.verbose)plotVecPdf<int>(degree);
 
-	printMessage(2, "Generating Communities");
+	if(config.verbose)printMessage(2, "Generating Communities");
 	generateComunities(communities, commAssign, degree, config);
 
-	outputCommAssign(config, commAssign);
+	if(config.verbose){
+		outputCommAssign(config, commAssign);
 
-	// Outdegree PDF Chart
-	vector<int> commSize( communities.size() );
-	int sum = 0;
-	for (unsigned int i = 0; i < communities.size(); ++i){
-		commSize[i] = communities[i].size();
-		sum  += commSize[i];
-	}// */
-	printMessage(2, "Mean Comunity size: %.0lf - %d communities", (double)sum/communities.size(), communities.size());
-	plotVecPdf<int>(commSize);
+		// Outdegree PDF Chart
+		vector<int> commSize( communities.size() );
 
-	printMessage(1, "Generating Network");
+		int sum = 0;
+		for (unsigned int i = 0; i < communities.size(); ++i){
+			commSize[i] = communities[i].size();
+			sum  += commSize[i];
+		}// */
+		printMessage(2, "Mean Comunity size: %.0lf - %d communities", (double)sum/communities.size(), communities.size());
+		plotVecPdf<int>(commSize);
+
+		printMessage(1, "Generating Network");
+	}
+
 	generateNetwork(adjList, inDegree, degree, degreeRank, communities, commAssign, config);
 
 	// InDegree PDF Chart
@@ -368,8 +373,9 @@ int main (int argc, char ** argv){
 
 	if ( ! config.inlineOutput ){
 		//Print edge list output
-		printMessage(1, "Output");
+		if(config.verbose) printMessage(1, "Output");
 		printGraph(adjList, config.numNodes);
 	}
+	if(config.verbose) printMessage(1, "DONE");
 
 }

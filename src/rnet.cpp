@@ -212,8 +212,7 @@ int chooseRandomDest(
 		vector<int> &degree, 
 		vector<pair<int,int>> &degreeRank, 
 		vector< pair<int,int> > * commun, 
-		float rand, float comPerc, 
-		float inP){
+		Config &config){
 
 	static default_random_engine randGen(time(NULL));
 	static uniform_real_distribution<double> unifDist(0.0,1.0);
@@ -221,19 +220,19 @@ int chooseRandomDest(
 	unsigned int numNodes = degree.size();
 	unsigned int index = 0;
 
-	bool destRand = (unifDist(randGen) < rand ) ? true : false;
+	bool destRand = (unifDist(randGen) < config.rand ) ? true : false;
 	do{
 		if (destRand) {
 			// Random Attachment
 			index = numNodes * unifDist(randGen);
 		}else{
-			if (unifDist(randGen) < comPerc){
+			if (unifDist(randGen) < config.comPerc){
 				// Preferential Attachment inside the edge source community
-				index = powerLaw( unifDist(randGen),  1, commun->size(), -inP) - 1;
+				index = powerLaw( unifDist(randGen),  1, commun->size(), -config.inP) - 1;
 				index = (*commun)[index].first;
 			}else{
 				// Preferential Attachment
-				index = powerLaw( unifDist(randGen),  1, numNodes, -inP) - 1;
+				index = powerLaw( unifDist(randGen),  1, numNodes, -config.inP) - 1;
 				index = degreeRank[index].first;
 			}
 		}
@@ -279,7 +278,7 @@ void generateNetwork(
 			vector<bool> nodeChosed(numNodes);
 
 			for ( int k = 0; k < degree[i] ; ++k){
-				unsigned int index = chooseRandomDest(i, &adjList[i], nodeChosed, degree, degreeRank, &comunities[commAssign[i]], config.rand, config.comPerc, config.inP);
+				unsigned int index = chooseRandomDest(i, &adjList[i], nodeChosed, degree, degreeRank, &comunities[commAssign[i]], config);
 				//cerr << i << " " << index << "   "; cerr.flush();
 
 				if( config.inlineOutput ){

@@ -63,7 +63,8 @@ void Config::help(){
 	cerr << "  -l --inlineOutput            Inline output doesn't save the graph in memmory " << endl;
 	cerr << "                               before outputing edge list, so it saves memmory." << endl;
 	cerr << "                               (Default: False)" << endl;
-	cerr << "  -v --verbose                 Verbose output. (Default: False)" << endl;
+	cerr << "  -v --verbose                 Verbose output with progression and distributions." << endl;
+	cerr << "                               (Default: False)" << endl;
 	cerr << endl;
 	cerr << endl;
 	cerr << "  \033[1mDISTRIBUTIONS PARAMETERS\033[21m - Distribution name followed by a comma " <<endl;

@@ -70,6 +70,9 @@ version of gcc (with homebrew?) and set cmake to work with it:
 
 _Yet to appear_
 
+# Disclaimer
+
+RNet is still a protptype, it may undergo heavy changes along the academic publication process.
 
 # Usefull Links
 

@@ -86,8 +86,8 @@ void Config::help(){
 	cerr << "Mandatory or optional arguments to long options are also mandatory or optional" << endl;
 	cerr << "for any corresponding short options." << endl;
 	cerr << endl;
-	cerr << "Project website: www.github.org/notyetavailablebutsoonthough" << endl;
-	cerr << "Report bugs to matheus@..." << endl;
+	cerr << "Project website: www.github.com/mtcs/rnet" << endl;
+	//cerr << "Report bugs to matheus@..." << endl;
 }
 
 Distribution Config::parseDist(char * distStr, float & pow, int & max, int & mean, float & sd){
@@ -145,7 +145,7 @@ Config::Config(int argc, char ** argv){
 
 	outP = 2.10; // Out Degree Power
 	inP = 1.1; // In Degree Power
-	comP = 1.9; // Community size Power
+	comP = 1.8; // Community size Power
 
 	outMax = 0;
 	inMax = 0;
@@ -228,13 +228,11 @@ Config::Config(int argc, char ** argv){
 		exit(1);
 	}
 
-	maxDegree = numNodes / ( 5 * log(numNodes));  
-
 	if (outMax == 0) outMax = numNodes / ( 5 * log(numNodes));
-	if (comMax == 0) comMax = numNodes/5;
+	if (comMax == 0) comMax = numNodes / 3;
 
-	if ( outMean == 0 ) { outMean = maxDegree/2; outSD = outMean/5; }
-	if ( inMean == 0 ) {inMean = maxDegree/2; inSD = inMean/5; }
+	if ( outMean == 0 ) { outMean = outMax/2; outSD = outMean/5; }
+	if ( inMean == 0 ) {inMean = outMax/2; inSD = inMean/5; }
 	if ( comMean == 0 ) {comMean = numNodes/100; comSD = comMean/5; }
 
 }

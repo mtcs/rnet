@@ -38,8 +38,10 @@ class Config {
 	public:
 
 		int numNodes; // Number of nodes
-		int maxDegree;  
 		bool inlineOutput;
+		string comAssignFile;
+		bool verbose;
+
 
 		// Linking probabilities 
 		float comPerc; // Community linking probability
@@ -66,9 +68,6 @@ class Config {
 		float outSD;
 		float inSD;
 		float comSD;
-
-		string comAssignFile;
-		bool verbose;
 
 		Config(int argc, char ** argv);
 		Config();

@@ -107,7 +107,7 @@ void generateComunities(vector< vector< pair<int,int> > > & comunities, vector<i
 			else {
 				switch (conf.comDist){
 					case POWERLAW:
-						newCommunitySize = 1 + (2 * unifDist(randGen)) + powerLaw( unifDist(randGen),  1, conf.comMax, -conf.comP);
+						newCommunitySize = 1 + (3 * unifDist(randGen)) + powerLaw( unifDist(randGen),  1, conf.comMax, -conf.comP);
 						//newCommunitySize =  powerLaw( unifDist(randGen),  1, numNodes, -conf.comP);
 						break;
 
@@ -343,7 +343,7 @@ int main (int argc, char ** argv){
 	if(config.verbose)printMessage(2, "OutDegree PDF");
 	if(config.verbose)plotVecPdf<int>(degree);
 
-	if(config.verbose)printMessage(2, "Generating Communities");
+	if(config.verbose)printMessage(2, "Generating Communities %s", config.comAssignFile.data());
 	generateComunities(communities, commAssign, degree, config);
 
 	if(config.verbose){

@@ -207,11 +207,10 @@ void plotVecPdf(vector<T> vec){
 
 int chooseRandomDest(
 		unsigned int i, 
-		list<int> * edgesP, 
 		vector<bool> &nodeChosed,
 		vector<int> &degree, 
 		vector<pair<int,int>> &degreeRank, 
-		vector< pair<int,int> > * commun, 
+		vector< pair<int,int> > & commun, 
 		Config &config){
 
 	static default_random_engine randGen(time(NULL));
@@ -228,8 +227,8 @@ int chooseRandomDest(
 		}else{
 			if (unifDist(randGen) < config.comPerc){
 				// Preferential Attachment inside the edge source community
-				index = powerLaw( unifDist(randGen),  1, commun->size(), -config.inP) - 1;
-				index = (*commun)[index].first;
+				index = powerLaw( unifDist(randGen),  1, commun.size(), -config.inP) - 1;
+				index = commun[index].first;
 			}else{
 				// Preferential Attachment
 				index = powerLaw( unifDist(randGen),  1, numNodes, -config.inP) - 1;
@@ -237,7 +236,6 @@ int chooseRandomDest(
 			}
 		}
 
-	//}while( (edgesP->find( index ) != edgesP->end()) || (index == i) || (index >= numNodes) );
 	}while( ( nodeChosed[ index ] ) || (index == i) || (index >= numNodes) );
 
 	nodeChosed[index] = true;
@@ -260,9 +258,12 @@ void generateNetwork(
 
 	if(config.verbose)printMessage(3,"Community and random attachment");
 
+
+
 	#pragma omp parallel 
 	{
 
+		vector<bool> nodeChosed(numNodes);
 		default_random_engine randGen(time(NULL));
 		uniform_real_distribution<double> unifDist(0.0,1.0);
 		
@@ -273,15 +274,15 @@ void generateNetwork(
 
 		#pragma omp for schedule(dynamic, 128)
 		for ( unsigned int i = 0; i < numNodes; ++i ){
-			
 			if(config.verbose)progress(numNodes, i, 100);
-			vector<bool> nodeChosed(numNodes);
+
+			nodeChosed.assign(numNodes, false);
 
 			for ( int k = 0; k < degree[i] ; ++k){
-				unsigned int index = chooseRandomDest(i, &adjList[i], nodeChosed, degree, degreeRank, &comunities[commAssign[i]], config);
+				unsigned int index = chooseRandomDest(i, nodeChosed, degree, degreeRank, comunities[commAssign[i]], config);
 				//cerr << i << " " << index << "   "; cerr.flush();
 
-				if( config.inlineOutput ){
+				if( ! config.inlineOutput ){
 					// Update Adjacency list
 					adjList[i].push_back(index);
 				}else{
@@ -345,9 +346,9 @@ int main (int argc, char ** argv){
 
 	if(config.verbose)printMessage(2, "Generating Communities %s", config.comAssignFile.data());
 	generateComunities(communities, commAssign, degree, config);
+	outputCommAssign(config, commAssign);
 
 	if(config.verbose){
-		outputCommAssign(config, commAssign);
 
 		// Outdegree PDF Chart
 		vector<int> commSize( communities.size() );

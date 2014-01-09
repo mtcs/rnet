@@ -161,7 +161,7 @@ void outputCommAssign(Config &conf, vector<int> &ca){
 		caOut.open ( conf.comAssignFile,  std::ofstream::out);
 
 		for ( unsigned int i = 0; i < ca.size(); ++i){
-			caOut << i << " " << ca[i] << endl;
+			caOut << i << " " << ca[i] << '\n';
 		}
 
 		caOut.close();
@@ -289,7 +289,7 @@ void generateNetwork(
 					// Or print inline
 					#pragma omp critical
 					{
-						cout << i << " " << index << " " << endl;
+						cout << i << " " << index << " " << '\n';
 					}
 				}
 				//#pragma omp atomic 
@@ -306,7 +306,7 @@ void printGraph(vector< list<int> > & adjList, int numNodes){
 	for ( int i = 0; i < numNodes; ++i){
 		list<int> * edgesP = &adjList[i];
 		for ( list<int>::iterator it = edgesP->begin(); it != edgesP->end(); ++it ){
-			cout << i << " " << *it << " " << endl;
+			cout << i << " " << *it << " \n";
 		}
 	}// */
 }

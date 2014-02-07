@@ -301,7 +301,19 @@ void generateNetwork(
 	if(config.verbose)cerr << endl;
 }
 
-void printGraph(vector< list<int> > & adjList, int numNodes){
+void printGraphAl(vector< list<int> > & adjList, int numNodes){
+
+	for ( int i = 0; i < numNodes; ++i){
+		list<int> * edgesP = &adjList[i];
+		cout << i << " "; 
+		for ( list<int>::iterator it = edgesP->begin(); it != edgesP->end(); ++it ){
+			cout << *it << " ";
+		}
+		cout << "\n"; 
+	}// */
+}
+
+void printGraphEl(vector< list<int> > & adjList, int numNodes){
 
 	for ( int i = 0; i < numNodes; ++i){
 		list<int> * edgesP = &adjList[i];
@@ -374,7 +386,10 @@ int main (int argc, char ** argv){
 	if ( ! config.inlineOutput ){
 		//Print edge list output
 		if(config.verbose) printMessage(1, "Output");
-		printGraph(adjList, config.numNodes);
+		if(config.outputAdjList)
+			printGraphAl(adjList, config.numNodes);
+		else
+			printGraphEl(adjList, config.numNodes);
 	}
 	if(config.verbose) printMessage(1, "DONE");
 

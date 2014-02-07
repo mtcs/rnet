@@ -41,7 +41,7 @@ class Config {
 		bool inlineOutput;
 		string comAssignFile;
 		bool verbose;
-
+		bool outputAdjList;
 
 		// Linking probabilities 
 		float comPerc; // Community linking probability

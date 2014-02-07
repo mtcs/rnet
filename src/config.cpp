@@ -32,62 +32,63 @@
 using namespace std;
 
 void printLicense(){
-	cerr << "RNet Copyright (C) 2013 Matheus Caldas Santos" << endl;
-	cerr << "This program comes with ABSOLUTELY NO WARRANTY." << endl;
-	cerr << "This is free software, and you are welcome to redistribute it" << endl;
-	cerr << "under certain conditions; see <http://www.gnu.org/licenses/> for details." << endl;
+	cerr << "RNet Copyright (C) 2013 Matheus Caldas Santos\n";
+	cerr << "This program comes with ABSOLUTELY NO WARRANTY.\n";
+	cerr << "This is free software, and you are welcome to redistribute it\n";
+	cerr << "under certain conditions; see <http://www.gnu.org/licenses/> for details.\n";
 }
 
 void Config::help(){
-	cerr << endl;
-        cerr << "RNet " << RNET_VERSION_MAJOR << "." << RNET_VERSION_MINOR << " (" << CMAKE_BUILD_TYPE  << ")" << endl;
+	cerr << "\n";
+        cerr << "RNet " << RNET_VERSION_MAJOR << "." << RNET_VERSION_MINOR << " (" << CMAKE_BUILD_TYPE  << ")\n";
 	cerr << "Compiled for " << CMAKE_SYSTEM_NAME << " by " << COMPILER << endl;
-	cerr << endl;
+	cerr << "\n";
 	logo();
-	cerr << endl;
-	cerr << "\033[1mUsage: " << PROGNAME << " -n [# of nodes] <-v> ...\033[21m" << endl;
-	cerr << endl;
-	cerr << "RNet is a realistic random network generator. It generates a social network from" << endl;
-	cerr << "some statistical parameters. It deliberately assign communities to each node to " << endl;
-	cerr << "achieve realistic social behavior." << endl;
-	cerr << endl;
-	cerr << "  \033[1mBASIC PARAMETERS\033[21m " << endl;
-	cerr << endl;
-	cerr << "  -n --numnodes #              Number of nodes/vertices in the network. [REQUIRED]" << endl;
-	cerr << "  -m --commlink #              Probability of a node to be connected to a node " << endl;
-	cerr << "                               inside its community. (Default: 0.95)" << endl; 
-	cerr << "  -r --randomlink #            Probability of a node to be connected to a random " << endl;
-	cerr << "                               link node. (Default: 0.05)" << endl;
-	cerr << "  -a --commassign <FILE>       Output to a specified file the community assigned" << endl;
-	cerr << "                               to each node. (Default: NULL)" << endl;
-	cerr << "  -l --inlineOutput            Inline output doesn't save the graph in memmory " << endl;
-	cerr << "                               before outputing edge list, so it saves memmory." << endl;
-	cerr << "                               (Default: False)" << endl;
-	cerr << "  -v --verbose                 Verbose output with progression and distributions." << endl;
-	cerr << "                               (Default: False)" << endl;
-	cerr << endl;
-	cerr << endl;
-	cerr << "  \033[1mDISTRIBUTIONS PARAMETERS\033[21m - Distribution name followed by a comma " <<endl;
-	cerr << "  and its parameters also separated by commas. Ex.: -o normal,100,5.8 " << endl;
-	cerr << "     ______________________________________________________________________" << endl;
-	cerr << "    |Available Distributions | Distribution Parameters                     |" << endl;
-	cerr << "    |----------------------------------------------------------------------|" << endl;
-	cerr << "    |powerlaw                | power constant(float), maximum value(float) |" << endl;
-	cerr << "    |normal                  | mean(integer), standard deviation(float)    |" << endl;
-	cerr << "    |________________________|_____________________________________________|" << endl;
-	cerr << endl;
-	cerr << "  -o --outdist	#       Outdegree distribution and arguments. " << endl;
-	cerr << "                       (Default: powerlaw,2.10,n/(5*log(n))" << endl;
-	cerr << "  -i --indist #        Indegree distribution and arguments. " << endl;
-	cerr << "                       (Default: powerlaw,1.1,NULL)" << endl;
-	cerr << "  -c --comdist #       Community size distribution and arguments. " << endl; 
-	cerr << "                       (Default: powerlaw,1.9,n/5)" << endl;
-	cerr << "" << endl;
-	cerr << "Mandatory or optional arguments to long options are also mandatory or optional" << endl;
-	cerr << "for any corresponding short options." << endl;
-	cerr << endl;
-	cerr << "Project website: www.github.com/mtcs/rnet" << endl;
-	//cerr << "Report bugs to matheus@..." << endl;
+	cerr << "\n";
+	cerr << "\033[1mUsage: " << PROGNAME << " -n [# of nodes] <-v> ...\033[21m\n";
+	cerr << "\n";
+	cerr << "RNet is a realistic random network generator. It generates a social network from\n";
+	cerr << "some statistical parameters. It deliberately assign communities to each node to \n";
+	cerr << "achieve realistic social behavior.\n";
+	cerr << "\n";
+	cerr << "  \033[1mBASIC PARAMETERS\033[21m \n";
+	cerr << "\n";
+	cerr << "  -n --numnodes #              Number of nodes/vertices in the network. [REQUIRED]\n";
+	cerr << "  -m --commlink #              Probability of a node to be connected to a node \n";
+	cerr << "                               inside its community. (Default: 0.95)\n"; 
+	cerr << "  -r --randomlink #            Probability of a node to be connected to a random \n";
+	cerr << "                               link node. (Default: 0.05)\n";
+	cerr << "  -a --commassign <FILE>       Output to a specified file the community assigned\n";
+	cerr << "                               to each node. (Default: NULL)\n";
+	cerr << "  -l --inlineOutput            Inline output doesn't save the graph in memmory \n";
+	cerr << "                               before outputing edge list, so it saves memmory.\n";
+	cerr << "                               (Default: False)\n";
+	cerr << "  -d --adjlist                 Output in adjacency list format\n";
+	cerr << "  -v --verbose                 Verbose output with progression and distributions.\n";
+	cerr << "                               (Default: False)\n";
+	cerr << "\n";
+	cerr << "\n";
+	cerr << "  \033[1mDISTRIBUTIONS PARAMETERS\033[21m - Distribution name followed by a comma \n";
+	cerr << "  and its parameters also separated by commas. Ex.: -o normal,100,5.8 \n";
+	cerr << "     ______________________________________________________________________\n";
+	cerr << "    |Available Distributions | Distribution Parameters                     |\n";
+	cerr << "    |----------------------------------------------------------------------|\n";
+	cerr << "    |powerlaw                | power constant(float), maximum value(float) |\n";
+	cerr << "    |normal                  | mean(integer), standard deviation(float)    |\n";
+	cerr << "    |________________________|_____________________________________________|\n";
+	cerr << "\n";
+	cerr << "  -o --outdist	#       Outdegree distribution and arguments. \n";
+	cerr << "                       (Default: powerlaw,2.10,n/(5*log(n))\n";
+	cerr << "  -i --indist #        Indegree distribution and arguments. \n";
+	cerr << "                       (Default: powerlaw,1.1,NULL)\n";
+	cerr << "  -c --comdist #       Community size distribution and arguments. \n"; 
+	cerr << "                       (Default: powerlaw,1.9,n/5)\n";
+	cerr << "\n";
+	cerr << "Mandatory or optional arguments to long options are also mandatory or optional\n";
+	cerr << "for any corresponding short options.\n";
+	cerr << "\n";
+	cerr << "Project website: www.github.com/mtcs/rnet\n";
+	//cerr << "Report bugs to matheus@...\n";
 }
 
 Distribution Config::parseDist(char * distStr, float & pow, int & max, int & mean, float & sd){
@@ -158,6 +159,7 @@ Config::Config(int argc, char ** argv){
 	comAssignFile = "";
 	inlineOutput = false;
 	verbose = false;
+	outputAdjList = false;
 
 		static struct option long_options[] = {
 			{"numnodes",	required_argument, 	0,  'n' },
@@ -168,6 +170,7 @@ Config::Config(int argc, char ** argv){
 			{"indist",	required_argument, 	0,  'i' },
 			{"comdist",	required_argument, 	0,  'c' },
 
+			{"adjlist",	required_argument,     	0,  'd' },
 			{"comassign",	required_argument,     	0,  'a' },
 			{"inlineout",	no_argument,     	0,  'l' },
 			{"verbose",	no_argument,       	0,  'v' }
@@ -178,7 +181,7 @@ Config::Config(int argc, char ** argv){
 	while (1) {
 		int option_index = 0;
 
-		c = getopt_long(argc, argv, "n:r:m:o:i:c:a:lv",
+		c = getopt_long(argc, argv, "n:r:m:o:i:c:a:ldv",
 				long_options, &option_index);
 		if (c == -1)
 			break;
@@ -208,6 +211,10 @@ Config::Config(int argc, char ** argv){
 				comDist = parseDist(optarg, comP, comMax, comMean, comSD);
 				break;
 
+
+			case 'd':
+				outputAdjList = true;
+				break;
 
 			case 'a':
 				comAssignFile = optarg;

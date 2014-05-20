@@ -72,7 +72,7 @@ _Yet to appear_
 
 # Disclaimer
 
-RNet is still a protptype, it may undergo heavy changes along the academic publication process.
+RNet is still a prototype, it may undergo heavy changes along the academic publication process.
 
 # Usefull Links
 
